@@ -2,6 +2,8 @@ import { sql } from "@vercel/postgres";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
+import { createUsersTable } from "@/lib/query";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
   callbacks: {
@@ -10,15 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async signIn({ profile }) {
       try {
-        await sql`
-          CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) UNIQUE NOT NULL,
-            imageUrl VARCHAR(255),
-            "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-          );
-          `;
+        await createUsersTable();
 
         const userExists = await sql`
           SELECT EXISTS (
@@ -30,7 +24,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (userExists.rows[0].exists === false) {
           await sql`
-            INSERT INTO users (name, email, imageUrl)
+            INSERT INTO users (name, email, imageurl)
             VALUES (${profile?.name}, ${profile?.email}, ${profile?.picture})
             ON CONFLICT (email) DO NOTHING;
             `;

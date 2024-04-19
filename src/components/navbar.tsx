@@ -26,7 +26,7 @@ export async function Navbar() {
             href="/"
             className="flex items-center space-x-2 hover:opacity-80"
           >
-            <span className="font-bold text-lg">JS Tigers</span>
+            <span className="text-lg font-bold">JS Tigers</span>
           </Link>
         </div>
 
@@ -35,7 +35,7 @@ export async function Navbar() {
           <nav className="flex items-center">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="size-9 rounded-full cursor-pointer">
+                <Avatar className="size-9 cursor-pointer rounded-full">
                   <AvatarImage
                     src={session?.user?.image ?? ""}
                     alt="user-image"

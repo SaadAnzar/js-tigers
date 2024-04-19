@@ -24,8 +24,8 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <button className="w-full inline-flex items-center" type="submit">
-        <LogOut className="size-4 mr-2" />
+      <button className="inline-flex w-full items-center" type="submit">
+        <LogOut className="mr-2 size-4" />
         Sign Out
       </button>
     </form>

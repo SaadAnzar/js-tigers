@@ -9,7 +9,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async signIn({ profile }) {
-      console.log(profile);
       try {
         await sql`
           CREATE TABLE IF NOT EXISTS users (
@@ -29,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           );
           `;
 
-        if (!userExists) {
+        if (userExists.rows[0].exists === false) {
           await sql`
             INSERT INTO users (name, email, imageUrl)
             VALUES (${profile?.name}, ${profile?.email}, ${profile?.picture})

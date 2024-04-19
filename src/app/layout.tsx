@@ -4,7 +4,7 @@ import { Metadata, Viewport } from "next";
 
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
-import Navbar from "@/components/navbar";
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
@@ -43,10 +43,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <Navbar />
-              <div className="flex-1">{children}</div>
-            </div>
+            {children}
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

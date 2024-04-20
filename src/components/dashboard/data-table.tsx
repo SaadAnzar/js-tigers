@@ -54,18 +54,18 @@ export function DataTable({ data }: DataTableProps) {
   });
 
   return (
-    <div className="flex flex-col px-3 py-3 md:container space-y-4">
-      <div className="flex items-center justify-between sm:space-x-6 space-x-1.5">
+    <div className="flex flex-col space-y-4 p-3 md:container">
+      <div className="flex items-center justify-between space-x-1.5 sm:space-x-6">
         <h1
           className={cn(
             buttonVariants({ variant: "outline" }),
             "hover:bg-inherit"
           )}
         >
-          All Vendors <ChevronDownCircle className="size-[18px] ml-2" />
+          All Vendors <ChevronDownCircle className="ml-2 size-[18px]" />
         </h1>
 
-        <div className="flex sm:space-x-6 space-x-1.5">
+        <div className="flex space-x-1.5 sm:space-x-6">
           <Input
             placeholder="Search vendors by name..."
             value={
@@ -74,11 +74,11 @@ export function DataTable({ data }: DataTableProps) {
             onChange={(event) =>
               table.getColumn("vendorname")?.setFilterValue(event.target.value)
             }
-            className="sm:max-w-sm max-w-40"
+            className="max-w-40 sm:max-w-sm"
           />
           <Link className={buttonVariants()} href="/create-vendor">
-            <Plus className="size-[18px] mr-2" />
-            Create <span className="sm:block hidden">&nbsp; Vendor</span>
+            <Plus className="mr-2 size-[18px]" />
+            Create <span className="hidden sm:block">&nbsp; Vendor</span>
           </Link>
         </div>
       </div>

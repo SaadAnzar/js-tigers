@@ -179,7 +179,7 @@ export function FormComponent({
         />
 
         <Button type="submit" disabled={loading}>
-          {loading && <Loader2 className="size-4 animate-spin mr-2" />}
+          {loading && <Loader2 className="mr-2 size-4 animate-spin" />}
           {buttonText}
         </Button>
       </form>

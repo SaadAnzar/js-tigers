@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 
-import { VendorForm } from "@/components/vendor-form";
+import { getVendorDetailsById } from "@/lib/query";
+import { EditVendorForm } from "@/components/edit-vendor-form";
 
 export default async function EditVendor({
   params,
@@ -12,5 +13,9 @@ export default async function EditVendor({
 
   if (!session?.user) redirect("/");
 
-  return <VendorForm id={params.id} />;
+  const data = await getVendorDetailsById(params.id);
+
+  const { rows: vendor } = data;
+
+  return <EditVendorForm id={params.id} vendor={vendor} />;
 }

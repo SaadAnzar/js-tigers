@@ -1,9 +1,10 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { sql } from "@vercel/postgres";
 
-import { VendorFormValues } from "@/components/vendor-form";
+import { VendorFormValues } from "@/components/form-component";
 
 export async function createUsersTable() {
   await sql`
@@ -43,8 +44,18 @@ export async function insertIntoVendors(data: VendorFormValues) {
       `;
 }
 
-export async function getVendorDetails(id: string) {
-  await sql`
+export async function getAllVendors() {
+  const session = await auth();
+
+  return await sql`
+      SELECT *
+      FROM vendors
+      WHERE createdby = ${session?.user?.email}
+      `;
+}
+
+export async function getVendorDetailsById(id: string) {
+  return await sql`
       SELECT *
       FROM vendors
       WHERE id = ${id}
@@ -61,4 +72,15 @@ export async function updateVendorDetails(
       SET vendorname = ${updatedData.vendorname}, bankaccountno = ${updatedData.bankaccountno}, bankname = ${updatedData.bankname}, addressline1 = ${updatedData.addressline1}, addressline2 = ${updatedData?.addressline2}, city = ${updatedData?.city}, country = ${updatedData?.country}, zipcode = ${updatedData?.zipcode}
       WHERE id = ${id};
       `;
+}
+
+export async function deleteVendor(id: string) {
+  return await sql`
+      DELETE FROM vendors
+      WHERE id = ${id}
+      `;
+}
+
+export async function clearCache(path: string) {
+  revalidatePath(path);
 }

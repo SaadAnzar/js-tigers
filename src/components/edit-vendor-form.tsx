@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { QueryResult, QueryResultRow } from "@vercel/postgres";
 import { ChevronLeft } from "lucide-react";
 import { toast } from "sonner";
@@ -21,17 +22,19 @@ interface EditVendorFormProps {
 }
 
 export function EditVendorForm({ id, vendor }: EditVendorFormProps) {
+  const router = useRouter();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const defaultValues: Partial<VendorFormValues> = {
     vendorname: `${vendor[0]?.vendorname}`,
-    bankaccountno: vendor[0]?.bankaccountno as number,
+    bankaccountno: vendor[0]?.bankaccountno,
     bankname: `${vendor[0]?.bankname}`,
     addressline1: `${vendor[0]?.addressline1}`,
     addressline2: `${vendor[0]?.addressline2}`,
     city: `${vendor[0]?.city}`,
     country: `${vendor[0]?.country}`,
-    zipcode: vendor[0]?.zipcode as number,
+    zipcode: vendor[0]?.zipcode,
   };
 
   async function onSubmit(data: VendorFormValues) {
@@ -46,6 +49,8 @@ export function EditVendorForm({ id, vendor }: EditVendorFormProps) {
     toast("The vendor is edited successfully!");
 
     clearCache("/dashboard");
+
+    router.push("/dashboard");
   }
 
   return (

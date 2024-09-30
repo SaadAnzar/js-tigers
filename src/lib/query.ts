@@ -13,7 +13,7 @@ export async function createUsersTable() {
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         imageurl VARCHAR(255),
-        "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );
       `;
 }
@@ -29,9 +29,9 @@ export async function createVendorsTable() {
         addressline2 VARCHAR(255),
         city VARCHAR(255),
         country VARCHAR(255),
-        zipcode BIGINT, 
+        zipcode BIGINT,
         createdby VARCHAR(255) REFERENCES users(email),
-        "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+        createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       );
       `;
 }

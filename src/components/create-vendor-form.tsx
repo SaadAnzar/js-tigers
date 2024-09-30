@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { toast } from "sonner";
 
@@ -11,17 +12,19 @@ import { buttonVariants } from "@/components/ui/button";
 import { FormComponent, VendorFormValues } from "@/components/form-component";
 
 const defaultValues: Partial<VendorFormValues> = {
-  vendorname: "Unique Bakery",
-  bankaccountno: 12345678890,
-  bankname: "Yes Bank",
-  addressline1: "Zakir Nagar",
-  addressline2: "Okhla",
-  city: "New Delhi",
-  country: "India",
-  zipcode: 110025,
+  vendorname: "",
+  bankaccountno: "",
+  bankname: "",
+  addressline1: "",
+  addressline2: "",
+  city: "",
+  country: "",
+  zipcode: "",
 };
 
 export function CreateVendorForm() {
+  const router = useRouter();
+
   const [loading, setLoading] = useState<boolean>(false);
 
   async function onSubmit(data: VendorFormValues) {
@@ -36,6 +39,8 @@ export function CreateVendorForm() {
     toast("The vendor is created successfully!");
 
     clearCache("/dashboard");
+
+    router.push("/dashboard");
   }
   return (
     <div className="flex flex-col px-3 pb-3 md:container">

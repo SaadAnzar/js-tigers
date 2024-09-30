@@ -21,22 +21,16 @@ const vendorFormSchema = z.object({
     .string()
     .min(1, { message: "The name of the vendor is required." }),
   bankaccountno: z
-    .number({
-      coerce: true,
-    })
-    .nonnegative()
+    .string()
     .min(1, { message: "The account number of the bank is required." }),
   bankname: z.string().min(1, { message: "The name of the bank is required." }),
   addressline1: z.string().min(1, { message: "The address is required." }),
   addressline2: z.string().optional(),
-  city: z.string().optional(),
-  country: z.string().optional(),
-  zipcode: z
-    .number({
-      coerce: true,
-    })
-    .nonnegative()
-    .optional(),
+  city: z.string().min(1, { message: "The name of the city is required." }),
+  country: z
+    .string()
+    .min(1, { message: "The name of the country is required." }),
+  zipcode: z.string().min(1, { message: "The zip code is required." }),
 });
 
 export type VendorFormValues = z.infer<typeof vendorFormSchema>;
@@ -73,7 +67,10 @@ export function FormComponent({
             <FormItem>
               <FormLabel>Vendor Name*</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="Enter the name of the vendor here."
+                />
               </FormControl>
 
               <FormMessage />
@@ -87,7 +84,10 @@ export function FormComponent({
             <FormItem>
               <FormLabel>Bank Account Number*</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="Enter the bank account number here."
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -100,7 +100,10 @@ export function FormComponent({
             <FormItem>
               <FormLabel>Bank Name*</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="Enter the name of the bank here."
+                />
               </FormControl>
 
               <FormMessage />
@@ -114,7 +117,10 @@ export function FormComponent({
             <FormItem>
               <FormLabel>Address Line 1*</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="Enter the address line 1 here."
+                />
               </FormControl>
 
               <FormMessage />
@@ -126,9 +132,12 @@ export function FormComponent({
           name="addressline2"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Address Line 2</FormLabel>
+              <FormLabel>Address Line 2 (optional)</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="Enter the address line 2 here."
+                />
               </FormControl>
 
               <FormMessage />
@@ -140,9 +149,12 @@ export function FormComponent({
           name="city"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>City</FormLabel>
+              <FormLabel>City*</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="Enter the name of the city here."
+                />
               </FormControl>
 
               <FormMessage />
@@ -154,9 +166,12 @@ export function FormComponent({
           name="country"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Country</FormLabel>
+              <FormLabel>Country*</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input
+                  {...field}
+                  placeholder="Enter the name of the country here."
+                />
               </FormControl>
 
               <FormMessage />
@@ -168,9 +183,9 @@ export function FormComponent({
           name="zipcode"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Zip Code</FormLabel>
+              <FormLabel>Zip Code*</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} placeholder="Enter the zip code here." />
               </FormControl>
 
               <FormMessage />
